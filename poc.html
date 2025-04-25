@@ -1,0 +1,90 @@
+	<html>
+<div id="value"></div>
+<button id="button">Button</button>
+<button id="tare">Tarration</button>
+
+<script>
+
+navigator.serial.addEventListener("connect", (e) => {
+console.log(e);
+  // Connect to `e.target` or add it to a list of available ports.
+});
+
+navigator.serial.addEventListener("disconnect", (e) => {
+console.log(e);
+  // Remove `e.target` from the list of available ports.
+});
+
+navigator.serial.getPorts().then((ports) => {
+console.log(ports);
+  // Initialize the list of available ports with `ports` on page load.
+});
+
+
+function readNewLine(weight) {
+	document.getElementById("value").innerText = `${weight}g`;
+}
+
+let espPort;
+
+async function portSelected() {
+	const decoder = new TextDecoder();
+	console.log('connection');
+	await espPort.open({ baudRate: 115200 });
+	console.log('lecture');
+	let buffer = "";
+	while (espPort.readable) {
+		const reader = espPort.readable.getReader();
+		try {
+			while (true) {
+				const { value, done } = await reader.read();
+				if (done) {
+					// |reader| has been canceled.
+					break;
+				}
+				strValue = decoder.decode(value);
+				if (strValue.includes('\n')) {
+					buffer += strValue.split('\n')[0];
+					console.log(buffer);
+					readNewLine(parseFloat(buffer.replace('\n','').replace('\r','')));
+					buffer = strValue.split('\n')[1];
+				} else {
+					buffer += strValue;
+				}
+			}
+		} catch (error) {
+			console.error(error);
+			// Handle |error|...
+		} finally {
+			reader.releaseLock();
+		}
+	}
+}
+
+document.getElementById('button').addEventListener("click", () => {
+  const usbVendorId = 0x10c4;
+  navigator.serial
+    .requestPort({ filters: [{ usbVendorId }] })
+    .then((port) => {
+			console.log('selected port', port);
+			espPort = port;
+			portSelected();
+      // Connect to `port` or add it to the list of available ports.
+    })
+    .catch((e) => {
+      // The user didn't select a port.
+    });
+});
+
+document.getElementById('tare').addEventListener("click", async () => {
+	console.log('Tarrage');
+	const encoder = new TextEncoder();
+	const writer = espPort.writable.getWriter();
+	await writer.write(encoder.encode("TARE\n"));
+	writer.releaseLock();
+	
+});
+
+</script>
+
+</html>
