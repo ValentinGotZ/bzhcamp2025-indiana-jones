@@ -10,7 +10,7 @@ HX711 balance;
 
 void handle_root() {
 
-String mesure = String(balance.get_units(10));
+String mesure = String(balance.get_units(100));
 }
 
 void setup(void)

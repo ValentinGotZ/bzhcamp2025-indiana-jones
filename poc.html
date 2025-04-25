@@ -22,7 +22,7 @@ console.log(ports);
 
 
 function readNewLine(weight) {
-	document.getElementById("value").innerText = `${weight}g`;
+	document.getElementById("value").innerText = `${weight}g -- ${50000 - Math.min(500, Math.abs(weight)) * 100}pts`;
 }
 
 let espPort;
