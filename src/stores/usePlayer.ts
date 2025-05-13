@@ -45,38 +45,10 @@ export const usePlayer = () => {
 
       const request = objectStore.add(player)
       request.onsuccess = (event) => {
-        resolve((event.target as IDBOpenDBRequest).result)
+        resolve((event.target as IDBRequest<number>)?.result)
       }
       request.onerror = (event) => {
         reject((event.target as IDBOpenDBRequest).error)
-      }
-    })
-  }
-
-  // Lire un joueur par son id
-  const getPlayerById = async (id: number): Promise<Player | null> => {
-    if (!db) {
-      db = await openDB()
-    }
-    return new Promise((resolve, reject) => {
-      const transaction = db.transaction([TABLE], 'readonly')
-      const objectStore = transaction.objectStore(TABLE)
-
-      const request = objectStore.get(id)
-      request.onsuccess = (event: IDBRequestEvent) => {
-        resolve(
-          request.result as {
-            id: number
-            firstname: string
-            lastname: string
-            email: string
-            score: number
-            allowContact: boolean
-          } | null,
-        )
-      }
-      request.onerror = (event: Event) => {
-        reject((event as ErrorEvent).error)
       }
     })
   }
@@ -86,12 +58,12 @@ export const usePlayer = () => {
       db = await openDB()
     }
     return new Promise((resolve, reject) => {
-      const transaction = db.transaction([TABLE], 'readonly')
+      const transaction = db!.transaction([TABLE], 'readonly')
       const objectStore = transaction.objectStore(TABLE)
 
       const request = objectStore.getAll()
-      request.onsuccess = (event: IDBRequestEvent) => {
-        const players: Player[] = (event.target as IDBOpenDBRequest).result
+      request.onsuccess = (event) => {
+        const players: Player[] = (event.target as IDBRequest<Player[]>).result
 
         resolve(players.filter((player) => !!player.score).sort((a, b) => b.score - a.score))
       }
@@ -107,7 +79,7 @@ export const usePlayer = () => {
       db = await openDB()
     }
     return new Promise((resolve, reject) => {
-      const transaction = db.transaction([TABLE], 'readwrite')
+      const transaction = db!.transaction([TABLE], 'readwrite')
       const objectStore = transaction.objectStore(TABLE)
 
       const request = objectStore.put(player)
@@ -120,30 +92,9 @@ export const usePlayer = () => {
     })
   }
 
-  // Supprimer un joueur
-  const deletePlayer = async (id: number): Promise<void> => {
-    if (!db) {
-      db = await openDB()
-    }
-    return new Promise((resolve, reject) => {
-      const transaction = db.transaction([TABLE], 'readwrite')
-      const objectStore = transaction.objectStore(TABLE)
-
-      const request = objectStore.delete(id)
-      request.onsuccess = () => {
-        resolve()
-      }
-      request.onerror = (event: Event) => {
-        reject((event as ErrorEvent).error)
-      }
-    })
-  }
-
   return {
     addPlayer,
-    getPlayerById,
     getAllPlayers,
     updatePlayer,
-    deletePlayer,
   }
 }

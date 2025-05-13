@@ -24,6 +24,7 @@ const onSubmit = async () => {
       lastname: form.lastname,
       email: form.email,
       allowContact: form.allowContact,
+      score: Math.floor(Math.random() * (50000 - 0 + 1) + 0),
     })
 
     await router.push(`/game/${playerId}`)
@@ -37,7 +38,7 @@ const onSubmit = async () => {
 
 <template>
   <div class="page--content">
-    <img class="title__img" src="../assets/title-jouer.png" />
+    <img class="title__img" src="../assets/title-jouer.png" alt="Jouer" />
 
     <form @submit.prevent="onSubmit">
       <div class="form-field">

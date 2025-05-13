@@ -1,52 +1,27 @@
 <script setup lang="ts">
+import type { Player } from '@/domains/player.domain.ts'
 import { usePlayer } from '@/stores/usePlayer.ts'
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 
 const playerStore = usePlayer()
 
+const players = ref<Player[]>([])
+
 onBeforeMount(async () => {
-  console.log(await playerStore.getAllPlayers())
+  players.value = await playerStore.getAllPlayers()
 })
 </script>
 
 <template>
   <div class="page--content">
-    <img class="title__img" src="../assets/title-leaderboard.png" />
+    <img class="title__img" src="../assets/title-leaderboard.png" alt="Leaderboard" />
 
     <ol class="leaderboard">
-      <li>
-        <div class="position">1</div>
+      <li v-for="(player, index) in players" :key="player.id">
+        <div class="position">{{ index + 1 }}</div>
         <div class="name-score">
-          <span>Valentin GOT</span>
-          <span>54 000</span>
-        </div>
-      </li>
-      <li>
-        <div class="position">2</div>
-        <div class="name-score">
-          <span>Valentin GOT</span>
-          <span>54 000</span>
-        </div>
-      </li>
-      <li>
-        <div class="position">3</div>
-        <div class="name-score">
-          <span>Valentin GOT</span>
-          <span>54 000</span>
-        </div>
-      </li>
-      <li>
-        <div class="position">4</div>
-        <div class="name-score">
-          <span>Valentin GOT</span>
-          <span>54 000</span>
-        </div>
-      </li>
-      <li>
-        <div class="position">5</div>
-        <div class="name-score">
-          <span>Valentin GOT</span>
-          <span>54 000</span>
+          <span>{{ player.firstname }} {{ player.lastname }}</span>
+          <span>{{ player.score }}</span>
         </div>
       </li>
     </ol>

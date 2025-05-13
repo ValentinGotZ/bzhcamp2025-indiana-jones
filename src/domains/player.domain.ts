@@ -1,4 +1,5 @@
 export interface Player {
+  id: number
   firstname: string
   lastname: string
   email: string
@@ -6,4 +7,4 @@ export interface Player {
   allowContact: boolean
 }
 
-export type AddPlayer = Omit<Player, 'score'>
+export type AddPlayer = Omit<Player, 'id' | 'score'>

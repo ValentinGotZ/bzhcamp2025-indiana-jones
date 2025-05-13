@@ -9,9 +9,7 @@ console.log(route.params.playerId)
 </script>
 
 <template>
-  <div class="page--content">
-    <img class="title__img" src="../assets/title-leaderboard.png" />
-  </div>
+  <div class="page--content">GAME</div>
 </template>
 
 <style scoped></style>
