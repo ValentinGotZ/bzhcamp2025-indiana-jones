@@ -24,7 +24,6 @@ const onSubmit = async () => {
       lastname: form.lastname,
       email: form.email,
       allowContact: form.allowContact,
-      score: Math.floor(Math.random() * (50000 - 0 + 1) + 0),
     })
 
     await router.push(`/game/${playerId}`)
@@ -59,7 +58,7 @@ const onSubmit = async () => {
       </div>
 
       <div class="actions-container">
-        <button type="submit">Jouer</button>
+        <button type="submit" class="button-lg">Jouer</button>
       </div>
     </form>
   </div>

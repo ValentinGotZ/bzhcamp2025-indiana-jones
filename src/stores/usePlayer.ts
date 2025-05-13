@@ -47,8 +47,30 @@ export const usePlayer = () => {
       request.onsuccess = (event) => {
         resolve((event.target as IDBRequest<number>)?.result)
       }
+
       request.onerror = (event) => {
         reject((event.target as IDBOpenDBRequest).error)
+      }
+    })
+  }
+
+  // Lire un joueur par son id
+  const getPlayerById = async (id: number): Promise<Player | null> => {
+    if (!db) {
+      db = await openDB()
+    }
+
+    return new Promise((resolve, reject) => {
+      const transaction = db!.transaction([TABLE], 'readonly')
+      const objectStore = transaction.objectStore(TABLE)
+
+      const request = objectStore.get(id)
+      request.onsuccess = (event) => {
+        resolve((event.target as IDBRequest<Player>).result)
+      }
+
+      request.onerror = (event) => {
+        reject((event as ErrorEvent).error)
       }
     })
   }
@@ -67,6 +89,7 @@ export const usePlayer = () => {
 
         resolve(players.filter((player) => !!player.score).sort((a, b) => b.score - a.score))
       }
+
       request.onerror = (event: Event) => {
         reject((event as ErrorEvent).error)
       }
@@ -86,6 +109,7 @@ export const usePlayer = () => {
       request.onsuccess = () => {
         resolve()
       }
+
       request.onerror = (event: Event) => {
         reject((event as ErrorEvent).error)
       }
@@ -94,6 +118,7 @@ export const usePlayer = () => {
 
   return {
     addPlayer,
+    getPlayerById,
     getAllPlayers,
     updatePlayer,
   }
