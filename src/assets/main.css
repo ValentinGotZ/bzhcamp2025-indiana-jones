@@ -23,6 +23,7 @@ html,
   justify-content: center;
   min-width: 50vw;
   max-width: 50vw;
+  padding-top: 40px;
 }
 
 .page-title {

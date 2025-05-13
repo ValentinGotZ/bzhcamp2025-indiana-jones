@@ -2,9 +2,11 @@
 import { SerialService } from '@/services/serial.service.ts'
 import { RouterLink, RouterView } from 'vue-router'
 
+const serialService = SerialService.getInstance()
+
 async function handleConnect() {
   try {
-    await SerialService.connect()
+    await serialService.connect()
   } catch (err) {
     console.error(err)
   }
