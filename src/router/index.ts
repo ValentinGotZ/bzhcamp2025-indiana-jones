@@ -1,18 +1,22 @@
-import GameView from '@/views/GameView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'game',
-      component: GameView,
+      path: '/player-info',
+      name: 'player-info',
+      component: () => import('../pages/PlayerInfoPage.vue'),
     },
     {
-      path: '/leaderboard',
+      path: '/game/:playerId',
+      name: 'game',
+      component: () => import('../pages/GamePage.vue'),
+    },
+    {
+      path: '/:catchAll(.*)',
       name: 'leaderboard',
-      component: () => import('../views/LeaderboardView.vue'),
+      component: () => import('../pages/LeaderboardPage.vue'),
     },
   ],
 })

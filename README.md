@@ -1,45 +1,15 @@
-# bzhcamp2025-indiana-jones
+# BreizhCamp 2025 - Indiana Jones Game
 
-This template should help get you started developing with Vue 3 in Vite.
+## Principe
 
-## Recommended IDE Setup
+### Leaderboard
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### Play
 
-## Type Support for `.vue` Imports in TS
+* Ajoute les infos du joueurs pour le recrutement
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### End screen
 
-## Customize configuration
+## Resources
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- Générateur font Indiana Jones: https://www.textstudio.com/logo/indiana-jones-409

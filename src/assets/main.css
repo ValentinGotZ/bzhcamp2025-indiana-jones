@@ -1,0 +1,36 @@
+@import "_form.css";
+@import "_typography.css";
+@import "_colors.css";
+
+body,
+html,
+#app {
+  height: 100%;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+@font-face {
+  font-family: 'IndianaJones';
+  src: url('./fonts/Indiana-Jonas-48ip.otf') format('opentype');
+}
+
+.page--content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 50vw;
+  max-width: 50vw;
+}
+
+.page-title {
+  font-family: 'IndianaJones';
+}
+
+.title__img {
+  flex: 0;
+  height: 200px;
+}
+

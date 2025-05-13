@@ -1,0 +1,42 @@
+.form-field {
+  display: flex;
+  flex-direction: column;
+
+  &.form-field__checkbox {
+    flex-direction: row;
+  }
+
+  & + .form-field {
+    margin-top: 12px;
+  }
+
+  label {
+    font-weight: 600;
+    font-size: var(--font-size-18);
+  }
+
+  input[type="text"],
+  input[type="email"] {
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-accent);
+    height: 24px;
+    padding: 8px 16px;
+    font-size: var(--font-size-20);
+    color: var(--color-text);
+  }
+}
+
+button[type="submit"] {
+  cursor: pointer;
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: 5px;
+  color: #F5CB79;
+  padding: 8px 16px;
+  font-size: var(--font-size-24);
+
+  &:hover {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+}
