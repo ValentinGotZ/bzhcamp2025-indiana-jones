@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import type { Player } from '@/domains/player.domain.ts'
+import Step1 from '@/features/game/Step1.vue'
+import Step2 from '@/features/game/Step2.vue'
+import Step3 from '@/features/game/Step3.vue'
+import Step4 from '@/features/game/Step4.vue'
 import { SerialService } from '@/services/serial.service.ts'
 import { usePlayer } from '@/stores/usePlayer.ts'
 import { onBeforeMount, ref } from 'vue'
@@ -12,8 +16,8 @@ const serialService = SerialService.getInstance()
 const playerId = parseInt(route.params.playerId as string, 10)
 const serialConnected = ref<boolean>(!!serialService.serial?.connected)
 const player = ref<Player | null>(null)
-const weight = ref<number>(0)
 const error = ref<boolean>(false)
+const step = ref<number>(0)
 
 onBeforeMount(async () => {
   try {
@@ -30,7 +34,7 @@ onBeforeMount(async () => {
       return
     }
 
-    await readWeight()
+    step.value = 1
   } catch (err) {
     console.error(err)
 
@@ -43,20 +47,15 @@ async function handleConnect() {
     await serialService.connect()
     serialConnected.value = !!serialService.serial?.connected
 
-    await readWeight()
+    // Always read the value and store it in the SerialService
+    serialService.read()
   } catch (err) {
     console.error(err)
   }
 }
 
-async function readWeight() {
-  if (serialService.serial?.connected) {
-    console.log(player.value)
-
-    await serialService.read((val) => {
-      weight.value = val
-    })
-  }
+function handleStepEnded() {
+  step.value = step.value + 1
 }
 </script>
 
@@ -72,9 +71,11 @@ async function readWeight() {
     </div>
 
     <section v-if="serialConnected && !error">
-      <h1>GAME</h1>
-
-      <p>{{ weight }}g</p>
+      <!--    <section v-if="!error">-->
+      <Step1 v-if="step === 1" @step-ended="handleStepEnded" />
+      <Step2 v-if="step === 2" @step-ended="handleStepEnded" />
+      <Step3 v-if="step === 3" @step-ended="handleStepEnded" />
+      <Step4 v-if="step === 4" @step-ended="handleStepEnded" />
     </section>
   </div>
 </template>
