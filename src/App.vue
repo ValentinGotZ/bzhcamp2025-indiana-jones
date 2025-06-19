@@ -17,7 +17,7 @@ async function handleConnect() {
   <div class="page-background">
     <header>
       <RouterLink to="/player-info" class="button button-sm">Jouer</RouterLink>
-      <RouterLink to="/" class="button button-sm">Leaderboard</RouterLink>
+      <RouterLink to="/leaderboard" class="button button-sm">Leaderboard</RouterLink>
       <button @click="handleConnect" class="button-sm">Connect</button>
     </header>
 

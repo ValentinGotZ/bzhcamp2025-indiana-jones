@@ -9,10 +9,10 @@ const route = useRoute()
 const playerStore = usePlayer()
 
 const options = ref<FireworksOptions>({ opacity: 0.5 })
-const showFirework = ref<boolean>(true)
 
 const players = ref<Player[]>([])
 const playerId = parseInt(route.params.playerId as string, 10)
+const showFirework = ref<boolean>(!!playerId)
 let scrolled = false;
 onUpdated(async () => {
   if (scrolled) return
@@ -35,6 +35,9 @@ onUpdated(async () => {
 onBeforeMount(async () => {
   players.value = await playerStore.getAllPlayers()
   console.log(players.value)
+  setTimeout(() => {
+    showFirework.value = false
+  }, 60000)
 })
 </script>
 
