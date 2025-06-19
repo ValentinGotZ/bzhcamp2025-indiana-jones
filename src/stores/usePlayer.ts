@@ -87,7 +87,7 @@ export const usePlayer = () => {
       request.onsuccess = (event) => {
         const players: Player[] = (event.target as IDBRequest<Player[]>).result
 
-        resolve(players.filter((player) => !!player.score).sort((a, b) => b.score - a.score))
+        resolve(players.filter((player) => typeof player.score === 'number').sort((a, b) => b.score - a.score))
       }
 
       request.onerror = (event: Event) => {

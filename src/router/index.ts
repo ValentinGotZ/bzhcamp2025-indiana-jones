@@ -14,9 +14,19 @@ const router = createRouter({
       component: () => import('../pages/GamePage.vue'),
     },
     {
-      path: '/:catchAll(.*)',
+      path: '/leaderboard/:playerId',
+      name: 'leaderboardwithplayer',
+      component: () => import('../pages/LeaderboardPage.vue'),
+    },
+    {
+      path: '/leaderboard',
       name: 'leaderboard',
       component: () => import('../pages/LeaderboardPage.vue'),
+    },
+    {
+      path: '/:catchAll(.*)',
+      name: 'fallback',
+      component: () => import('../pages/PlayerInfoPage.vue'),
     },
   ],
 })

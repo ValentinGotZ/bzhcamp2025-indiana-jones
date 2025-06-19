@@ -15,7 +15,7 @@ function handleCountdownEnded() {
     <h1>Remplissez votre bourse de riz</h1>
     <h3>Le poids de la bourse doit être au plus proche de celui de l'idole</h3>
 
-    <Countdown :value="10" @ended="handleCountdownEnded()" />
+    <Countdown :value="7" @ended="handleCountdownEnded()" />
   </div>
 </template>
 

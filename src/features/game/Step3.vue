@@ -49,7 +49,7 @@ function waitIdoleRemove() {
 
     <div class="step2">
       <h1 v-if="balance !== 0">Posez votre bourse</h1>
-      <Countdown v-if="balance !== 0" :value="5" @ended="handleCountdownEnded" />
+      <Countdown v-if="balance !== 0" :value="10" @ended="handleCountdownEnded" />
     </div>
   </div>
 </template>

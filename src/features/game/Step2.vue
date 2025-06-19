@@ -10,18 +10,15 @@ const emit = defineEmits(['stepEnded'])
 onMounted(async () => {
   await serialService.tare().catch(() => console.error(`Impossible de tare l'idole`))
 
-  video.value!.addEventListener('timeupdate', ({ timeStamp }) => {
-    console.log('step2:timeStamp', timeStamp)
-    if (timeStamp > 34500) {
-      emit('stepEnded')
-      console.log('step2:video-ended')
-    }
+  video.value!.addEventListener('ended', () => {
+    emit('stepEnded')
+    console.log('step2:video-ended')
   })
 })
 </script>
 
 <template>
-  <div class="video-container">
+  <div class="video-container" @click="emit('stepEnded')">
     <video autoplay muted class="video" ref="video">
       <source src="../../assets/step1.mp4" type="video/mp4" />
     </video>

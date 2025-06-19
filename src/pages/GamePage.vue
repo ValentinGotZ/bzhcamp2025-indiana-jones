@@ -4,13 +4,15 @@ import Step1 from '@/features/game/Step1.vue'
 import Step2 from '@/features/game/Step2.vue'
 import Step3 from '@/features/game/Step3.vue'
 import Step4 from '@/features/game/Step4.vue'
+import Router from '@/router'
 import { SerialService } from '@/services/serial.service.ts'
 import { usePlayer } from '@/stores/usePlayer.ts'
 import { onBeforeMount, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const playerStore = usePlayer()
 const route = useRoute()
+const router = useRouter()
 const serialService = SerialService.getInstance()
 
 const playerId = parseInt(route.params.playerId as string, 10)
@@ -34,7 +36,7 @@ onBeforeMount(async () => {
       return
     }
 
-    step.value = 2
+    step.value = 1
   } catch (err) {
     console.error(err)
 
@@ -57,6 +59,14 @@ async function handleConnect() {
 function handleStepEnded() {
   step.value = step.value + 1
 }
+
+async function handleScore(weight: number) {
+  player.value!.score = Math.round(Math.max(0, 100000 - (weight * 200)))
+  await playerStore.updatePlayer({
+    ...player.value
+  })
+  await router.push(`/leaderboard/${player.value!.id}`)
+}
 </script>
 
 <template>
@@ -75,7 +85,7 @@ function handleStepEnded() {
       <Step1 v-if="step === 1" @step-ended="handleStepEnded" />
       <Step2 v-if="step === 2" @step-ended="handleStepEnded" />
       <Step3 v-if="step === 3" @step-ended="handleStepEnded" />
-      <Step4 v-if="step === 4" @step-ended="handleStepEnded" />
+      <Step4 v-if="step === 4" @step-ended="handleScore" />
     </section>
   </div>
 </template>

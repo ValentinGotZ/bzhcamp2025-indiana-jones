@@ -6,35 +6,41 @@ import { useRouter } from 'vue-router'
 const emit = defineEmits(['stepEnded'])
 
 const serialService = SerialService.getInstance()
-const router = useRouter()
 
-const score = ref<number>(0)
 const video = ref<HTMLVideoElement>()
 
 onMounted(async () => {
-  score.value = serialService.balanceWeight.value * 1000
-  console.log('step4:score', score.value)
+  let weight: number = 1000;
+  setTimeout(() => weight = serialService.balanceWeight.value, 1000);
 
   video.value!.addEventListener('ended', () => {
     console.log('step4:video-ended, go to leaderboard')
-
-    router.push('/')
+    emit('stepEnded', weight)
   })
 })
 </script>
 
 <template>
-  <div class="container">
-    <h1>Bravo !</h1>
-    <h2>
-      Votre score est de <strong>{{ score }}</strong>
-    </h2>
-
-    <p>VIDEO</p>
+  <div class="video-container">
+    <video autoplay muted class="video" ref="video">
+      <source src="../../assets/step2.mp4" type="video/mp4" />
+    </video>
   </div>
 </template>
 
 <style scoped>
-.container {
+.video-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .video {
+    max-width: 80%;
+  }
 }
 </style>

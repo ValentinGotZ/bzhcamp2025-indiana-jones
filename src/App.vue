@@ -46,6 +46,7 @@ header {
   position: absolute;
   bottom: 10px;
   right: 10px;
+  z-index: 1000;
 
   .button {
     margin-right: 5px;
