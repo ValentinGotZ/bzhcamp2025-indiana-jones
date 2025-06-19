@@ -34,7 +34,7 @@ onBeforeMount(async () => {
       return
     }
 
-    step.value = 1
+    step.value = 2
   } catch (err) {
     console.error(err)
 
