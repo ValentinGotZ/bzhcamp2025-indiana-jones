@@ -2,10 +2,12 @@
 import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{
-  value: number
+  value: number,
+  size: number
 }>()
 const emit = defineEmits(['ended'])
 const value = ref<number>(props.value)
+const size = ref<number>(props.size ?? 40)
 const src = computed(() => {
   return `/src/assets/countdown/${value.value}.png`
 })
@@ -25,7 +27,7 @@ onMounted(() => {
 
 <template>
   <div class="countdown">
-    <img :src="src" />
+    <img :src="src" :style="{height: size + 'vh'}" />
   </div>
 </template>
 
@@ -35,8 +37,5 @@ onMounted(() => {
   justify-content: center;
   padding-top: 5vh;
 
-  img {
-    height: 40vh;
-  }
 }
 </style>

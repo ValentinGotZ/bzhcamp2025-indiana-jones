@@ -10,7 +10,6 @@ const form = reactive({
   firstname: null,
   lastname: null,
   email: null,
-  allowContact: false,
 })
 
 const onSubmit = async () => {
@@ -23,7 +22,6 @@ const onSubmit = async () => {
       firstname: form.firstname,
       lastname: form.lastname,
       email: form.email,
-      allowContact: form.allowContact,
     })
 
     await router.push(`/game/${playerId}`)
@@ -53,8 +51,7 @@ const onSubmit = async () => {
         <input id="email" type="email" v-model="form.email" required />
       </div>
       <div class="form-field form-field__checkbox">
-        <label for="allowContact">J'accepte d'être contacté</label>
-        <input id="allowContact" type="checkbox" v-model="form.allowContact" />
+        <label>Les données collectées seront supprimé à la fin de l'évènement</label>
       </div>
 
       <div class="actions-container">
