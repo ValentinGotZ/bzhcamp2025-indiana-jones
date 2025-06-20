@@ -12,7 +12,7 @@ onMounted(async () => {
   await serialService.tare().catch(() => console.error(`Impossible de tare l'idole`))
 
   video.value!.addEventListener('ended', () => {
-    // emit('stepEnded')
+    emit('stepEnded')
     console.log('step2:video-ended')
   })
 })
@@ -40,7 +40,7 @@ onMounted(async () => {
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr;
   gap: 40px;
-  margin-top: 5vh;
+  margin-top: 1vh;
 
   .countdown {
     grid-row: 1;
@@ -60,12 +60,12 @@ onMounted(async () => {
 
     h1 {
       margin: 0;
-      font-size: 60px;
+      font-size: 50px;
     }
 
     h2 {
       margin: 0;
-      font-size: 30px;
+      font-size: 25px;
     }
   }
 }
