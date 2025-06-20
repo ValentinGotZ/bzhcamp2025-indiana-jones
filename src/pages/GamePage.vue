@@ -70,16 +70,16 @@ async function handleScore(weight: number) {
 
 <template>
   <div class="page--content">
-    <!--    <div class="alert alert-danger" v-if="!serialConnected">-->
-    <!--      Balance non connectée-->
+    <div class="alert alert-danger" v-if="!serialConnected">
+      Balance non connectée
 
-    <!--      <button @click="handleConnect">Connecter</button>-->
-    <!--    </div>-->
+      <button @click="handleConnect">Connecter</button>
+    </div>
     <div class="alert alert-danger" v-if="error">
       Une erreur est survenue, impossible de démarrer la partie
     </div>
 
-    <section v-if="!serialConnected && !error">
+    <section v-if="serialConnected && !error">
       <Step1 v-if="step === 1" @step-ended="handleStepEnded" />
       <Step2 v-if="step === 2" @step-ended="handleStepEnded" />
       <Step3 v-if="step === 3" @step-ended="handleStepEnded" />

@@ -45,12 +45,14 @@ function waitIdoleRemove() {
 
 <template>
   <div class="container">
-    <h1 v-if="balance === 0" class="step1">Retirez l'idole</h1>
-    <h2 v-if="balance === 0" class="step1">Attendez le décompte pour poser la bourse</h2>
+    <div class="step1" v-if="balance === 0">
+      <h1>Retirez l'idole</h1>
+      <h2>Attendez le décompte pour poser la bourse</h2>
+    </div>
 
-    <div class="step2">
-      <h1 v-if="balance !== 0">Posez votre bourse</h1>
-      <Countdown v-if="balance !== 0" :value="10" @ended="handleCountdownEnded" />
+    <div class="step2" v-if="balance !== 0">
+      <h1>Posez votre bourse</h1>
+      <Countdown :value="10" @ended="handleCountdownEnded" />
     </div>
   </div>
 </template>
@@ -58,6 +60,12 @@ function waitIdoleRemove() {
 <style scoped>
 h1 {
   font-size: 60px;
+  text-align: center;
+  margin: 0;
+}
+
+h2 {
+  font-size: 25px;
   text-align: center;
   margin: 0;
 }

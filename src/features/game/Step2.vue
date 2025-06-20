@@ -9,7 +9,7 @@ const video = ref<HTMLVideoElement>()
 const emit = defineEmits(['stepEnded'])
 
 onMounted(async () => {
-  await serialService.tare().catch(() => console.error(`Impossible de tare l'idole`))
+  await serialService.tare().catch((err) => console.error(`Impossible de tare l'idole`, err))
 
   video.value!.addEventListener('ended', () => {
     emit('stepEnded')
@@ -28,7 +28,7 @@ onMounted(async () => {
   </div>
 
   <div class="video-container">
-    <video autoplay muted class="video" ref="video">
+    <video autoplay muted class="video" ref="video" @click="emit('stepEnded')">
       <source src="../../assets/step1.mp4" type="video/mp4" />
     </video>
   </div>
@@ -60,7 +60,7 @@ onMounted(async () => {
 
     h1 {
       margin: 0;
-      font-size: 50px;
+      font-size: 45px;
     }
 
     h2 {
