@@ -4,7 +4,6 @@ import Step1 from '@/features/game/Step1.vue'
 import Step2 from '@/features/game/Step2.vue'
 import Step3 from '@/features/game/Step3.vue'
 import Step4 from '@/features/game/Step4.vue'
-import Router from '@/router'
 import { SerialService } from '@/services/serial.service.ts'
 import { usePlayer } from '@/stores/usePlayer.ts'
 import { onBeforeMount, ref } from 'vue'
@@ -61,9 +60,9 @@ function handleStepEnded() {
 }
 
 async function handleScore(weight: number) {
-  player.value!.score = Math.round(Math.max(0, 100000 - (weight * 200)))
+  player.value!.score = Math.round(Math.max(0, 100000 - weight * 200))
   await playerStore.updatePlayer({
-    ...player.value
+    ...player.value,
   })
   await router.push(`/leaderboard/${player.value!.id}`)
 }
@@ -71,17 +70,16 @@ async function handleScore(weight: number) {
 
 <template>
   <div class="page--content">
-    <div class="alert alert-danger" v-if="!serialConnected">
-      Balance non connectée
+    <!--    <div class="alert alert-danger" v-if="!serialConnected">-->
+    <!--      Balance non connectée-->
 
-      <button @click="handleConnect">Connecter</button>
-    </div>
+    <!--      <button @click="handleConnect">Connecter</button>-->
+    <!--    </div>-->
     <div class="alert alert-danger" v-if="error">
       Une erreur est survenue, impossible de démarrer la partie
     </div>
 
-    <section v-if="serialConnected && !error">
-      <!--    <section v-if="!error">-->
+    <section v-if="!serialConnected && !error">
       <Step1 v-if="step === 1" @step-ended="handleStepEnded" />
       <Step2 v-if="step === 2" @step-ended="handleStepEnded" />
       <Step3 v-if="step === 3" @step-ended="handleStepEnded" />

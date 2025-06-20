@@ -12,26 +12,12 @@ function handleCountdownEnded() {
 
 <template>
   <div class="container">
-    <h1>Remplissez votre bourse de riz</h1>
-    <h3>Le poids de la bourse doit être au plus proche de celui de l'idole</h3>
-
-    <Countdown :value="7" @ended="handleCountdownEnded()" />
+    <Countdown :value="3" @ended="handleCountdownEnded()" />
   </div>
 </template>
 
 <style scoped>
 .container {
-  h1 {
-    font-size: 60px;
-  }
-
-  h3 {
-    font-size: 30px;
-  }
-
-  h1,
-  h3 {
-    text-align: center;
-  }
+  margin-top: 20vh;
 }
 </style>
