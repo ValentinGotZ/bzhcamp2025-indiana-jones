@@ -45,7 +45,8 @@ function waitIdoleRemove() {
 
 <template>
   <div class="container">
-    <h1 v-if="balance === 0" class="step1">Retirez la statuette</h1>
+    <h1 v-if="balance === 0" class="step1">Retirez l'idole</h1>
+    <h2 v-if="balance === 0" class="step1">Attendez le décompte pour poser la bourse</h2>
 
     <div class="step2">
       <h1 v-if="balance !== 0">Posez votre bourse</h1>
